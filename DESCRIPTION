@@ -1,0 +1,10 @@
+Package: spillr
+Type: Package
+Title: R package of miscellaneous functions
+Version: 1.0
+Date: 2014-12-08
+Author: Trey Spiller
+Maintainer: Trey <treyspiller@gmail.com>
+Description: Miscellaneous R function created during data cleaning, analysis,
+    and package development.
+License: GPL-3
