@@ -2,14 +2,14 @@
 #'
 #' This is like a transposed version of print: columns run down the page,
 #' and data runs across. This makes it possible to see every column in
-#' a data frame. It's a little like [str()] applied to a data frame
+#' a data frame. It's a little like \code{str()} applied to a data frame
 #' but it tries to show you as much data as possible. (And it always shows
 #' the underlying data, even when applied to a remote data source.)
 #' 
-#' This is a modified version of the tibble package's "glimpse.tbl" S3 method 
-#' that includes the contents of the "label" variable attribute, if present
+#' This is a modified version of the tibble package's 'glimpse.tbl' S3 method 
+#' that includes the contents of the 'label' variable attribute, if present
 #' (e.g., if you imported a Stata dataset with variable labels using 
-#' `haven::read_stata()`).
+#' \code{haven::read_stata()}).
 #'
 #' @param x An object to glimpse at.
 #' @param width Width of output: defaults to the setting of the option
@@ -17,8 +17,11 @@
 #' @param labels Include variable labels in the printout. If `TRUE` and no 
 #'   variables have the `label` attribute, labels will be printed as 10
 #'   spaces to demonstrate their absence.
-#' @return x original x is (invisibly) returned, allowing `glimpse_labels()` 
+#' @return x original x is (invisibly) returned, allowing \code{glimpse_labels()}
 #'   to be used within a data pipe line.
+#' @importFrom tibble type_sum
+#' @importFrom stringr str_wrap
+#' @importFrom utils combn head
 #' @export
 #' @examples
 #'  dat1 <- tibble::data_frame(x = 1:20, y = 21:40)
@@ -42,7 +45,7 @@ glimpse_labels <- function (x, width = NULL, labels = TRUE) {
   cat("Variables: ", tibble:::big_mark(ncol(x)), "\n", sep = "")
   rows <- as.integer(width/3)
   df <- as.data.frame(head(x, rows))
-  var_types <- vapply(df, type_sum, character(1))
+  var_types <- vapply(df, tibble::type_sum, character(1))
   
   # Edits to add labels  
   if (!labels) {
