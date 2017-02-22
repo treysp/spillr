@@ -8,5 +8,6 @@ Maintainer: Trey <treyspiller@gmail.com>
 Description: Miscellaneous R function created during data cleaning, analysis,
     and package development.
 License: file LICENSE
-Imports: stringr, tibble
+Depends: tibble
+Imports: stringr
 RoxygenNote: 5.0.1
