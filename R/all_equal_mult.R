@@ -2,19 +2,19 @@
 #' 
 #' @param ... >=2 comma-separated object names
 #' @return 
-#' \code{all.equal.mult} returns TRUE or list of pairwise all.equal() object comparisons
+#' \code{all_equal_mult} returns TRUE or list of pairwise all.equal() object comparisons
 #' @examples
 #'  foo <- c(1:10)
 #'  bar <- c(1:10)
 #'  foz <- c(1:10)
 #'  baz <- letters[1:10]
 #'
-#'  all.equal.mult(foo, bar) # TRUE
-#'  all.equal.mult(foo, baz) # results of all.equal(foo, baz) as one-item list
-#'  all.equal.mult(foo, bar, foz) # TRUE
-#'  all.equal.mult(foo, bar, baz) # list of pairwise all.equal() comparisons among objects
-#' @export all.equal.mult
-all.equal.mult <- function(...) {
+#'  all_equal_mult(foo, bar) # TRUE
+#'  all_equal_mult(foo, baz) # results of all.equal(foo, baz) as one-item list
+#'  all_equal_mult(foo, bar, foz) # TRUE
+#'  all_equal_mult(foo, bar, baz) # list of pairwise all.equal() comparisons among objects
+#' @export all_equal_mult
+all_equal_mult <- function(...) {
   # more than one object required
   if (length(list(...)) < 2) stop("More than one object required")
 
