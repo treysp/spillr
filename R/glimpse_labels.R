@@ -106,8 +106,11 @@ glimpse_labels <- function (x, width = NULL, labels = TRUE) {
     to_pad <- which(!is.na(last_line_widths) & last_line_widths < pad_to) 
     
     if (length(to_pad) > 0) {
-      tbl_labels[to_pad] <- paste0(tbl_labels[to_pad], 
-                                   paste0(rep(" ", pad_to - last_line_widths[to_pad]), collapse = ""))
+      for (i in seq_along(to_pad)) {
+        tbl_labels[to_pad[i]] <- paste0(tbl_labels[to_pad[i]], 
+                                     paste0(rep(" ", pad_to - last_line_widths[to_pad[i]]), 
+                                            collapse = ""))
+      }
       
       last_line_widths <- last_line_width(tbl_labels)
     }
