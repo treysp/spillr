@@ -22,6 +22,7 @@ funs <- lapply(libs, function(x) {
   pack_funs <- getNamespaceExports(x)
   
   data.frame(
+    package = x,
     fun = pack_funs,
     fun_colons = paste0(x, "::", pack_funs),
     stringsAsFactors = FALSE
@@ -38,6 +39,11 @@ if (any(duplicated(funs$fun))) {
 }
 
 locate_fun <- function(fun) {
+  funs_used[funs_used$fun_regex == fun, "used"] <- TRUE
+  
+  # overwrite (update) funs_used in colonify_functions() environment
+  assign("funs_used", funs_used, envir = sys.frame(1)) 
+  
   paste0(funs[funs$fun_regex == fun, "fun_colons"], "(")
 }
 
@@ -49,7 +55,14 @@ fun_regex <- paste0(funs$fun_regex, "\\(", collapse = "|")
 
 funs$fun_regex <- paste0(funs$fun_regex, "(")
 
-str_replace_all(my_file, fun_regex, locate_fun)
+funs_used <- funs
+funs_used$used <- as.logical(NA)
+
+code_out <- str_replace_all(my_file, fun_regex, locate_fun)
+funs_used_out <- funs_used[!is.na(funs_used$used) & funs_used$used == TRUE, 
+                           c("lib", "fun")]
+
+list(code = code_out, funs_used = funs_used_out)
 }
 
 library(stringr)
